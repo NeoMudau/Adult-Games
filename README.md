@@ -1,8 +1,8 @@
 # Adult-Games
 ## Games Included
-### Truth or Dare 
-### Would you rather 
-### etc
+- Truth or Dare 
+- Would you rather 
+- etc
 
 ### The Aim of creating these games
 Creating a centralplace for all the fun during group gathering or playing during parties
