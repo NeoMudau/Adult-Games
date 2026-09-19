@@ -1,0 +1,39 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Register | Adult-Games{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Create an Account 🎮</h1>
+
+        <p>Join Adult-Games and start playing!</p>
+
+        {{ form_start(registrationForm) }}
+
+            {{ form_errors(registrationForm) }}
+
+            {{ form_row(registrationForm.username) }}
+
+            {{ form_row(registrationForm.email) }}
+
+            {{ form_row(registrationForm.dateOfBirth) }}
+
+            {{ form_row(registrationForm.gender) }}
+
+            {{ form_row(registrationForm.plainPassword) }}
+
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <button type="submit" class="btn">
+                Create Account
+            </button>
+
+        {{ form_end(registrationForm) }}
+
+        <p>
+            Already have an account?
+            <a href="{{ path('app_login') }}">Login here</a>
+        </p>
+    </div>
+{% endblock %}
