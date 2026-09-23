@@ -34,5 +34,14 @@
         <button class="btn btn-lg btn-primary" type="submit">
             Sign in
         </button>
+
+        <p>
+    Don't have an account?
+    <a href="{{ path('app_register') }}">Create an account</a>
+    </p>
+
+    <p>
+        <a href="{{ path('app_home') }}">Continue as a guest</a>
+    </p>
     </form>
 {% endblock %}
