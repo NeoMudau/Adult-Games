@@ -1,0 +1,191 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Truth or Darer Game{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .button {
+        display: inline-block;
+        margin: 5px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .question {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .animation {
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
+
+<div class="container">
+        <h1>Truth or Dare</h1>
+        <div id="game">
+            <button class="button" onclick="playTruthOrDare('truth')">
+                Truth
+            </button>
+            <button class="button" onclick="playTruthOrDare('dare')">
+                Dare
+            </button>
+            <!-- <button class="button" onclick="playWouldYouRather()">
+               Would You Rather
+            </button> -->
+        </div>
+    </div>
+
+    <script>
+        var truthQuestions = [
+            "What is the most embarrassing thing that has ever happened to you?",
+            "Have you ever lied to a friend to avoid hanging out with them?",
+			"What is the most embarrassing thing you've done in public?",
+			"Have you ever cheated on a Test or Exam?",
+			"What is your most Irrational fear?",
+			"What is the most embarrassing thing you've ever Googled?",
+			"Have you ever sent a text to the wrong person?",
+			"What is the most embarrassing fashion trend you've ever Followed?",
+			"Have you ever pretended to like a gift, but actually didn't",
+			"What is your most bizzare or weird Talent?",
+			"Have you ever told a secret you promised to keep?",
+			"What is the most childish thing you still enjoy doing?",
+			"Have you ever snooped through someone else's belongings without their permission?",
+			"What is the most embarrassing thing your parents have caught you doing?",
+			"What is the weidest dream you've ever had?",
+            // Add more truth questions here
+        ];
+
+        var dareTasks = [
+            "Sing a song in a silly voice.",
+            "Do your best impersonation of a famous person.",
+			"Twerk for the players.",
+			"Kiss the player on your right hand side.",
+			"Kiss the player on your Left hand side.",
+			"Do your best impersonation of a famous person",
+			"Sing a song using only nonsense words",
+			"Go outside and shout as loud as you can",
+			"Do your best animal impression and everone has to guess what it is",
+			"Call random numbers and sing happy-birthday to the person who answers",
+			"Perform an interpretive dance of a famous movie you've seen",
+			"Do an impression of another player and have everyone guess who it is ",
+			"Speak in a different accent for the next twoo rounds",
+            // Add more dare tasks here
+        ];
+
+        var wouldYouRatherQuestions = [
+            "Would you rather be able to fly or be invisible?",
+            "Would you rather always have to whisper or shout everything you say?",
+			"Would you rather have the power to rewind time or pause time ",
+			"Would you rather have a personal chef or a personal masseuse",
+			"Would you rather always have to sing instead of speaking or dance everywhere you go",
+			"Would you rather be stranded in a deserted island or lost in a big city",
+			"Would you rather always have to wear a clown wig or giant red nose",
+			"Would you rather live in a house made entirely of chocolate or a house made of marshmallows",
+			"Would you rather have the ability to control fire or control water ",
+			"Would you rather never be able to use the internet again or never be able watch TV again",
+			"Would you rather have the power to speak to animals or speak all human languages fluently",
+			"Would you rather be able to teleport anywhere or be able to read minds",
+			"Would you rather live without music or live without movies",
+			"Would you rather have bad hair or bad breath",
+            // Add more "Would you rather" questions here
+        ];
+
+        function playTruthOrDare(choice) {
+            var gameDiv = document.getElementById("game");
+            gameDiv.innerHTML = "";
+
+            var question = document.createElement("div");
+            question.setAttribute("class", "question");
+            question.innerText = choice === "truth" ? getRandomItem(truthQuestions) : getRandomItem(dareTasks);
+
+            gameDiv.appendChild(question);
+
+            var completeButton = document.createElement("button");
+            completeButton.setAttribute("class", "button animation");
+            completeButton.innerText = "Complete";
+            completeButton.addEventListener("click", function() {
+                // Handle the completion of the truth or dare task
+
+                // Example: Display completion message
+                var completionDiv = document.createElement("div");
+                completionDiv.innerText = "Task completed!";
+                completionDiv.classList.add("animation");
+                gameDiv.appendChild(completionDiv);
+
+                // Go back to the main menu
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000); // Wait for 2 seconds and reload the page
+            });
+
+            gameDiv.appendChild(completeButton);
+        }
+
+        function playWouldYouRather() {
+            var gameDiv = document.getElementById("game");
+            gameDiv.innerHTML = "";
+
+            var question = document.createElement("div");
+            question.setAttribute("class", "question");
+            question.innerText = getRandomItem(wouldYouRatherQuestions);
+
+            var completeButton = document.createElement("button");
+            completeButton.setAttribute("class", "button animation");
+            completeButton.innerText = "Complete";
+            completeButton.addEventListener("click", function() {
+                // Handle the completion of the would you rather question
+
+                // Example: Display completion message
+                var completionDiv = document.createElement("div");
+                completionDiv.innerText = "Question answered!";
+                completionDiv.classList.add("animation");
+                gameDiv.appendChild(completionDiv);
+
+                // Go back to the main menu
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000); // Wait for 2 seconds and reload the page
+            });
+
+            gameDiv.appendChild(question);
+            gameDiv.appendChild(completeButton);
+        }
+
+        function getRandomItem(array) {
+            var index = Math.floor(Math.random() * array.length);
+            return array[index];
+        }
+    </script>
+{% endblock %}
