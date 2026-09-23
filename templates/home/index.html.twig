@@ -11,10 +11,13 @@
 <div class="example-wrapper">
     <h1Welcome! ✅</h1>
 
-    This is where everyone will see the games currently available
+    This is where everyone will see the games currently available, for them to select and play
     <ul>
         <li>Games will be in some sort of cards, title image and description</li>
         <li>after selecting a game you login or play as guest</li>
     </ul>
+    <a href="{{ path('app_login') }}">Login here</a>
+    <a href="{{ path('app_register') }}">Register here</a> <br>
+    <a href="{{ path('app_games') }}">Play as Guest</a>
 </div>
 {% endblock %}
