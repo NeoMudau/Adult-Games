@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Would You Rather - Gameplay{% endblock %}
+
+{% block body %}
+
+<div style="max-width: 800px; margin: 50px auto; text-align: center;">
+
+    <h1>Would You Rather 🎮</h1>
+
+    <h2>{{ question.question }}</h2>
+
+    <div style="margin-top: 30px;">
+        <button type="button">
+            {{ question.optionA }}
+        </button>
+
+        <span style="margin: 0 20px;">OR</span>
+
+        <button type="button">
+            {{ question.optionB }}
+        </button>
+    </div>
+
+</div>
+
+{% endblock %}

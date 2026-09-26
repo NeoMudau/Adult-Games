@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Would You Rather{% endblock %}
+
+{% block body %}
+
+<div style="max-width: 800px; margin: 50px auto; text-align: center;">
+
+    <h1>Would You Rather 🎮</h1>
+
+    <p>
+        Choose between two options. There are no right or wrong answers.
+        Pick what you would rather do.
+    </p>
+
+    <hr>
+
+    <h2>The game is ready!</h2>
+
+    <p>Questions will appear here.</p>
+    <br>
+    <a href="{{ path('would_you_rather_gameplay') }}">
+        <button type="button">Start Game</button>
+    </a> 
+
+</div>
+
+{% endblock %}
