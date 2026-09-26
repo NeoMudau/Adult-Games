@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    WouldYouRatherBundle\:
+        resource: '../src/'
+        exclude:
+            - '../src/Entity/'
+            - '../src/WouldYouRatherBundle.php'

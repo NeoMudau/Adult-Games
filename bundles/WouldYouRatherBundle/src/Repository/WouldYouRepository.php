@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace WouldYouRatherBundle\Repository;
 
-use App\Entity\WouldYou;
+use WouldYouRatherBundle\Entity\WouldYou;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

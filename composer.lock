@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a5e64add5f1729efc79f68722a07e7c2",
+    "content-hash": "02e73912118da98ee14b7f48da8f46b7",
     "packages": [
         {
             "name": "composer/semver",
@@ -1386,6 +1386,30 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "game/would-you-rather-bundle",
+            "version": "dev-development",
+            "dist": {
+                "type": "path",
+                "url": "bundles/WouldYouRatherBundle",
+                "reference": "cd1d43528a627a92df1c21dc5f9f43407a067b5d"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "WouldYouRatherBundle\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "WouldYouRatherBundle\\Tests\\": "tests/"
+                }
+            },
+            "description": "Would You Rather game bundle for Symfony",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "monolog/monolog",
@@ -10766,7 +10790,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "game/would-you-rather-bundle": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -10774,6 +10800,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.9.0"
 }

@@ -47,6 +47,9 @@
             "./config/routes/easyadmin.yaml"
         ]
     },
+    "game/would-you-rather-bundle": {
+        "version": "dev-development"
+    },
     "phpunit/phpunit": {
         "version": "11.5",
         "recipe": {

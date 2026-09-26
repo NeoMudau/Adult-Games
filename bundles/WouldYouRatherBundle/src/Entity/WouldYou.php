@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace WouldYouRatherBundle\Entity;
 
-use App\Repository\WouldYouRepository;
+use WouldYouRatherBundle\Repository\WouldYouRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WouldYouRepository::class)]
+#[ORM\Table(name: 'would_you')]
 class WouldYou
 {
     #[ORM\Id]
@@ -33,6 +34,12 @@ class WouldYou
 
     #[ORM\Column]
     private ?bool $active = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $optionA = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $optionB = null;
 
     public function getId(): ?int
     {
@@ -119,6 +126,30 @@ class WouldYou
     public function setActive(bool $active): static
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getOptionA(): ?string
+    {
+        return $this->optionA;
+    }
+
+    public function setOptionA(string $optionA): static
+    {
+        $this->optionA = $optionA;
+
+        return $this;
+    }
+
+    public function getOptionB(): ?string
+    {
+        return $this->optionB;
+    }
+
+    public function setOptionB(string $optionB): static
+    {
+        $this->optionB = $optionB;
 
         return $this;
     }
