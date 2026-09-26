@@ -1,0 +1,5 @@
+would_you_rather_controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: WouldYouRatherBundle\Controller
+    type: attribute

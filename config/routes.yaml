@@ -9,3 +9,6 @@
 
 controllers:
     resource: routing.controllers
+
+would_you_rather:
+    resource: '../bundles/WouldYouRatherBundle/config/routes.yaml'
