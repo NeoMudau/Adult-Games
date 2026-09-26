@@ -1,0 +1,17 @@
+{
+    "name": "game/would-you-rather-bundle",
+    "description": "Would You Rather game bundle for Symfony",
+    "type": "symfony-bundle",
+
+    "autoload": {
+        "psr-4": {
+            "WouldYouRatherBundle\\": "src/"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "WouldYouRatherBundle\\Tests\\": "tests/"
+        }
+    }
+}
