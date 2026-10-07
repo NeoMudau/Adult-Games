@@ -17,55 +17,57 @@ class WouldYouRepository extends ServiceEntityRepository
         parent::__construct($registry, WouldYou::class);
     }
 
-//    /**
-//     * @return WouldYou[] Returns an array of WouldYou objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('w')
-//            ->andWhere('w.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('w.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?WouldYou
-//    {
-//        return $this->createQueryBuilder('w')
-//            ->andWhere('w.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
-
-    public function findRandomActive(?int $excludeId = null): ?WouldYou
-    {
+   public function findRandomActive(
+        array $excludeIds = [],
+        array $categories = [],
+        array $tags = []
+    ): ?WouldYou {
         $queryBuilder = $this->createQueryBuilder('w')
-            ->select('w.id')
             ->where('w.active = :active')
             ->andWhere('w.deletedAt IS NULL')
             ->setParameter('active', true);
 
-        if ($excludeId !== null) {
+        if ($excludeIds !== []) {
             $queryBuilder
-                ->andWhere('w.id != :excludeId')
-                ->setParameter('excludeId', $excludeId);
+                ->andWhere($queryBuilder->expr()->notIn('w.id', ':excludeIds'))
+                ->setParameter('excludeIds', $excludeIds);
         }
 
-        $ids = $queryBuilder
+        /** @var WouldYou[] $questions */
+        $questions = $queryBuilder
             ->getQuery()
-            ->getSingleColumnResult();
+            ->getResult();
 
-        if ($ids === []) {
+        if ($categories !== []) {
+            $questions = array_filter(
+                $questions,
+                static function (WouldYou $question) use ($categories): bool {
+                    return array_intersect(
+                        $categories,
+                        $question->getCategory()
+                    ) !== [];
+                }
+            );
+        }
+
+        if ($tags !== []) {
+            $questions = array_filter(
+                $questions,
+                static function (WouldYou $question) use ($tags): bool {
+                    return array_intersect(
+                        $tags,
+                        $question->getTags()
+                    ) !== [];
+                }
+            );
+        }
+
+        if ($questions === []) {
             return null;
         }
 
-        $randomId = $ids[array_rand($ids)];
+        $questions = array_values($questions);
 
-        return $this->find($randomId);
+        return $questions[array_rand($questions)];
     }
 }

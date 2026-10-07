@@ -3,26 +3,60 @@
 {% block title %}Would You Rather{% endblock %}
 
 {% block body %}
+<div style="max-width: 800px; margin: 50px auto;">
 
-<div style="max-width: 800px; margin: 50px auto; text-align: center;">
+    <h1 style="text-align: center;">
+        Would You Rather 🎮
+    </h1>
 
-    <h1>Would You Rather 🎮</h1>
+    <form
+        method="get"
+        action="{{ path('would_you_rather_gameplay') }}"
+    >
 
-    <p>
-        Choose between two options. There are no right or wrong answers.
-        Pick what you would rather do.
-    </p>
+        <h2>Choose Categories</h2>
 
-    <hr>
+        {% for label, value in categories %}
+            <div>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="categories[]"
+                        value="{{ value }}"
+                    >
 
-    <h2>The game is ready!</h2>
+                    {{ label }}
+                </label>
+            </div>
+        {% endfor %}
 
-    <p>Questions will appear here.</p>
-    <br>
-    <a href="{{ path('would_you_rather_gameplay') }}">
-        <button type="button">Start Game</button>
-    </a> 
+
+        <h2 style="margin-top: 30px;">
+            Choose Tags / Vibe
+        </h2>
+
+        {% for label, value in tags %}
+            <div>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="tags[]"
+                        value="{{ value }}"
+                    >
+
+                    {{ label }}
+                </label>
+            </div>
+        {% endfor %}
+
+
+        <div style="margin-top: 30px;">
+            <button type="submit">
+                Start Game
+            </button>
+        </div>
+
+    </form>
 
 </div>
-
 {% endblock %}

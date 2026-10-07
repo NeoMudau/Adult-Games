@@ -42,21 +42,73 @@
 </div>
 
 <script>
-async function chooseOption() {
-    const gameContainer = document.getElementById('game-container');
-    const currentQuestionId = gameContainer.dataset.questionId;
+let seenQuestionIds = [
+    {{ question.id }}
+];
 
-    const response = await fetch(
+async function chooseOption() {
+    const params = new URLSearchParams();
+
+    seenQuestionIds.forEach(function(id) {
+        params.append('exclude[]', id);
+    });
+
+    {% for category in categories %}
+        params.append('categories[]', '{{ category|e('js') }}');
+    {% endfor %}
+
+    {% for tag in tags %}
+        params.append('tags[]', '{{ tag|e('js') }}');
+    {% endfor %}
+
+    let response = await fetch(
         '{{ path('would_you_rather_random_question') }}' +
-        '?exclude=' + currentQuestionId
+        '?' +
+        params.toString()
     );
 
+    // All matching questions have been seen
+    if (response.status === 404) {
+
+        // Start a new round
+        const lastQuestionId =
+            document.getElementById('game-container').dataset.questionId;
+
+        seenQuestionIds = [
+            parseInt(lastQuestionId)
+        ];
+
+        const resetParams = new URLSearchParams();
+
+        {% for category in categories %}
+            resetParams.append(
+                'categories[]',
+                '{{ category|e('js') }}'
+            );
+        {% endfor %}
+
+        {% for tag in tags %}
+            resetParams.append(
+                'tags[]',
+                '{{ tag|e('js') }}'
+            );
+        {% endfor %}
+
+        response = await fetch(
+            '{{ path('would_you_rather_random_question') }}' +
+            '?' +
+            resetParams.toString()
+        );
+    }
+
     if (!response.ok) {
-        console.error('Could not load the next question.');
+        console.error('Could not load another question.');
         return;
     }
 
     const question = await response.json();
+
+    seenQuestionIds.push(question.id);
 
     document.getElementById('question').textContent =
         question.question;
@@ -67,7 +119,9 @@ async function chooseOption() {
     document.getElementById('option-b').textContent =
         question.optionB;
 
-    gameContainer.dataset.questionId = question.id;
+    document
+        .getElementById('game-container')
+        .dataset.questionId = question.id;
 }
 </script>
 {% endblock %}
