@@ -6,6 +6,7 @@ use WouldYouRatherBundle\Entity\WouldYou;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @extends ServiceEntityRepository<WouldYou>
  */
@@ -40,4 +41,31 @@ class WouldYouRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findRandomActive(?int $excludeId = null): ?WouldYou
+    {
+        $queryBuilder = $this->createQueryBuilder('w')
+            ->select('w.id')
+            ->where('w.active = :active')
+            ->andWhere('w.deletedAt IS NULL')
+            ->setParameter('active', true);
+
+        if ($excludeId !== null) {
+            $queryBuilder
+                ->andWhere('w.id != :excludeId')
+                ->setParameter('excludeId', $excludeId);
+        }
+
+        $ids = $queryBuilder
+            ->getQuery()
+            ->getSingleColumnResult();
+
+        if ($ids === []) {
+            return null;
+        }
+
+        $randomId = $ids[array_rand($ids)];
+
+        return $this->find($randomId);
+    }
 }

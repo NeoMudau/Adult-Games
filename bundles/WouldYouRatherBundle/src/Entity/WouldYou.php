@@ -7,8 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WouldYouRepository::class)]
 #[ORM\Table(name: 'would_you')]
+#[ORM\HasLifecycleCallbacks]
 class WouldYou
 {
+    public function __construct()
+    {
+        $this->active = true;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -152,5 +158,23 @@ class WouldYou
         $this->optionB = $optionB;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $now = new \DateTimeImmutable();
+
+        if ($this->createdAt === null) {
+            $this->createdAt = $now;
+        }
+
+        $this->updatedAt = $now;
+    }
+
+    #[ORM\PreUpdate]
+    public function onPreUpdate(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }
