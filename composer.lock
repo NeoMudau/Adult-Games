@@ -1393,9 +1393,20 @@
             "dist": {
                 "type": "path",
                 "url": "bundles/WouldYouRatherBundle",
-                "reference": "cd1d43528a627a92df1c21dc5f9f43407a067b5d"
+                "reference": "b8f1f65c07599c58998168be1d053ceeaee764d3"
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "^2.0",
+                "doctrine/orm": "^3.0",
+                "php": ">=8.2",
+                "symfony/framework-bundle": "^7.4"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "symfony": {
+                    "require": "7.4.*"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "WouldYouRatherBundle\\": "src/"
@@ -1406,7 +1417,10 @@
                     "WouldYouRatherBundle\\Tests\\": "tests/"
                 }
             },
-            "description": "Would You Rather game bundle for Symfony",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Would You Rather game module for the Adult-Games platform",
             "transport-options": {
                 "relative": true
             }

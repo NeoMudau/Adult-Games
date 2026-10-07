@@ -3,25 +3,71 @@
 {% block title %}Would You Rather - Gameplay{% endblock %}
 
 {% block body %}
-
 <div style="max-width: 800px; margin: 50px auto; text-align: center;">
 
     <h1>Would You Rather 🎮</h1>
 
-    <h2>{{ question.question }}</h2>
+    <div id="game-container" data-question-id="{{ question.id }}">
 
-    <div style="margin-top: 30px;">
-        <button type="button">
-            {{ question.optionA }}
-        </button>
+        <h2 id="question">
+            {{ question.question }}
+        </h2>
 
-        <span style="margin: 0 20px;">OR</span>
+        <div style="margin-top: 30px;">
 
-        <button type="button">
-            {{ question.optionB }}
-        </button>
+            <button
+                type="button"
+                id="option-a"
+                onclick="chooseOption()"
+            >
+                {{ question.optionA }}
+            </button>
+
+            <span style="margin: 0 20px;">
+                OR
+            </span>
+
+            <button
+                type="button"
+                id="option-b"
+                onclick="chooseOption()"
+            >
+                {{ question.optionB }}
+            </button>
+
+        </div>
+
     </div>
 
 </div>
 
+<script>
+async function chooseOption() {
+    const gameContainer = document.getElementById('game-container');
+    const currentQuestionId = gameContainer.dataset.questionId;
+
+    const response = await fetch(
+        '{{ path('would_you_rather_random_question') }}' +
+        '?exclude=' + currentQuestionId
+    );
+
+    if (!response.ok) {
+        console.error('Could not load the next question.');
+        return;
+    }
+
+    const question = await response.json();
+
+    document.getElementById('question').textContent =
+        question.question;
+
+    document.getElementById('option-a').textContent =
+        question.optionA;
+
+    document.getElementById('option-b').textContent =
+        question.optionB;
+
+    gameContainer.dataset.questionId = question.id;
+}
+</script>
 {% endblock %}

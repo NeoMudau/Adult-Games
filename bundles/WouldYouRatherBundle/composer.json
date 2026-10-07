@@ -1,7 +1,15 @@
 {
     "name": "game/would-you-rather-bundle",
-    "description": "Would You Rather game bundle for Symfony",
+    "description": "Would You Rather game module for the Adult-Games platform",
     "type": "symfony-bundle",
+    "license": "proprietary",
+
+    "require": {
+        "php": ">=8.2",
+        "symfony/framework-bundle": "^7.4",
+        "doctrine/orm": "^3.0",
+        "doctrine/doctrine-bundle": "^2.0"
+    },
 
     "autoload": {
         "psr-4": {
@@ -12,6 +20,12 @@
     "autoload-dev": {
         "psr-4": {
             "WouldYouRatherBundle\\Tests\\": "tests/"
+        }
+    },
+
+    "extra": {
+        "symfony": {
+            "require": "7.4.*"
         }
     }
 }

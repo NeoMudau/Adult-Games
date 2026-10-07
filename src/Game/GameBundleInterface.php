@@ -4,5 +4,7 @@ namespace App\Game;
 
 interface GameBundleInterface
 {
-    public function getGameMetadata(): array;
+    public static function getGameMetadata(): array;
+
+    public static function getAdminMenuItems(): array;
 }
